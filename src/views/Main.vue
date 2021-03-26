@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="container-fluid">
-      <h1>List of Drugs</h1>
+      <h1      >
+        List of Drugs
+      </h1>
       <div
-        class="border middle align"
+        class="border"
         id="potato"
         style="
           padding: 15px;
@@ -16,8 +18,8 @@
         "
       >
         <table class="table centered">
-          <thead >
-            <tr >
+          <thead>
+            <tr>
               <th scope="col">#</th>
               <th scope="col">Image</th>
               <th scope="col">Drug Name</th>
@@ -27,20 +29,30 @@
               <th scope="col">Method</th>
             </tr>
           </thead>
-          <tbody >
-            <tr v-for="(drug,idx) in drugs" :key="idx" style="background-color:white; ">
-                <th>{{idx }}</th>
+          <tbody>
+            <tr
+              v-for="(drug, idx) in drugs"
+              :key="idx"
+              style="background-color: white"
+            >
+              <th>{{ idx }}</th>
               <!-- <td><img src="../assets/img/Ibuprofen.jpg" width="50" /></td> -->
-              <td><sui-image width="40" v-bind:src="'../assets/img/' + drug.name +'.jpg'" /></td>
+              <td>
+                <sui-image
+                  width="40"
+                  v-bind:src="getImgUrl(drug.name)"
+                />
+              </td>
               <td>{{ drug.name }}</td>
               <td>{{ drug.dose }}</td>
               <td>{{ drug.package }}</td>
               <td>{{ drug.unit }}</td>
               <td>
-                <button type="button" class="btn btn-info" v-on:click="detailbutton(idx)">Detail</button>
+                <sui-button type="submit" v-on:click="detailbutton(idx)"
+                  >Details</sui-button
+                >
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
@@ -65,11 +77,15 @@ export default {
   },
   mounted() {},
   methods: {
-    detailbutton(potato){
-      console.log('potato')
-      console.log(potato)
-      this.$router.push(`/detail/${potato}`)
-    }
+      getImgUrl(url) {
+    var images = require.context('../assets/img/', false, /\.jpg$/)
+    return images('./' + url + ".jpg")
+  },
+    detailbutton(potato) {
+      console.log("potato");
+      console.log(potato);
+      this.$router.push(`/detail/${potato}`);
+    },
   },
 };
 </script>

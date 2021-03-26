@@ -69,9 +69,9 @@
                   </div>
                   <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                     <td>
-                      <sui-image
-                        width="40"
-                        v-bind:src="'../assets/img/' + drug.name + '.jpg'"
+                      <img
+                        width="200"
+                        v-bind:src="getImgUrl(drug.name)" 
                       />
                     </td>
                   </div>
@@ -113,6 +113,10 @@ export default {
   },
   mounted() {},
   methods: {
+      getImgUrl(url) {
+    var images = require.context('../assets/img/', false, /\.jpg$/)
+    return images('./' + url + ".jpg")
+  },
       backbutton(){
           this.$router.push('/')
       }
